@@ -13,43 +13,6 @@ import selenium
 from shutil import which
 import os, sys
 import numpy as np
-
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.keys import Keys
-# from selenium.common.exceptions import TimeoutException
-# from selenium.webdriver.chrome.options import Options
-# from selenium.webdriver.common.action_chains import ActionChains
-# from selenium.webdriver.support.ui import Select
-# # chromeOptions = webdriver.ChromeOptions()
-# # from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-
-# from selenium import webdriver
-# from selenium.common.exceptions import TimeoutException
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.firefox.options import Options
-# from selenium.webdriver.firefox.service import Service
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.support.ui import WebDriverWait
-
-
-
-# from selenium import webdriver
-# from selenium.webdriver.common.alert import Alert
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.keys import Keys
-# from selenium.common.exceptions import TimeoutException
-# from selenium.webdriver.chrome.options import Options
-# from selenium.webdriver.common.action_chains import ActionChains
-# from selenium.webdriver.support.ui import Select
-# from webdriver_manager.firefox import GeckoDriverManager
-# # from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-# from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-# # from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-# # from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -72,8 +35,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 firefoxOptions = Options()
 FIREFOXPATH = which("firefox")
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
-# firefoxOptions.add_argument(f'user-agent={user_agent}')
-# firefoxOptions.binary_location = "/usr/bin/firefox"
+firefoxOptions.add_argument(f'user-agent={user_agent}')
 firefoxOptions.add_argument('--headless')
 firefoxOptions.add_argument('--no-sandbox')
 firefoxOptions.add_argument("--window-size=1920,1080")
@@ -193,7 +155,7 @@ if uploadedFile is not None:
 
         # THE THIRD SITE
         url_3 = f'https://www.citilink.ru/search/?text={goods}'
-        browser = webdriver.Chrome(executable_path=r'/home/appuser/geckodriver.exe', options = firefoxOptions)
+        browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_3)
         time.sleep(3)
@@ -235,7 +197,7 @@ if uploadedFile is not None:
 
         # THE FORTH SITE
         url_4 = f'https://www.xcom-shop.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT'
-        browser = webdriver.Chrome(executable_path=r'/home/appuser/geckodriver.exe', options = firefoxOptions)
+        browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_4)
         time.sleep(3)
