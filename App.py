@@ -10,6 +10,9 @@ import re
 from lxml import html
 import datetime
 import selenium
+from shutil import which
+import os, sys
+import numpy as np
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -49,6 +52,7 @@ from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 # from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 firefoxOptions = Options()
+FIREFOXPATH = which("firefox")
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
 # firefoxOptions.add_argument(f'user-agent={user_agent}')
 firefoxOptions.binary_location = "/usr/bin/firefox"
@@ -60,8 +64,7 @@ firefoxOptions.add_argument('--disable-dev-shm-usage')
 #firefoxOptions.add_argument("--start-maximized")
 firefoxOptions.add_argument('--ignore-certificate-errors')
 firefoxOptions.add_argument('--allow-running-insecure-content')
-import os, sys
-import numpy as np
+firefoxOptions.binary = FIREFOXPATH
 
 path = os.getcwd()
 # print(path)
