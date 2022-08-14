@@ -151,6 +151,7 @@ if uploadedFile is not None:
                     break
             else:
                 continue
+        browser.quit()        
 
 
         # THE THIRD SITE
@@ -193,7 +194,7 @@ if uploadedFile is not None:
                     break
             else:
                 continue
-
+        browser.quit()
 
         # THE FORTH SITE
         url_4 = f'https://www.xcom-shop.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT'
@@ -237,7 +238,8 @@ if uploadedFile is not None:
                     break
             else:
                 continue
-
+        browser.quit()
+        
         # THE FIFTH SITE
         headers = {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.148 YaBrowser/22.7.'}
