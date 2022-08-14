@@ -198,6 +198,7 @@ if uploadedFile is not None:
 
         # THE FORTH SITE
         url_4 = f'https://www.xcom-shop.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT'
+        st.write(url_4)
 #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_4)
