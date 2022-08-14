@@ -10,6 +10,28 @@ import re
 from lxml import html
 import datetime
 import selenium
+
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import Select
+chromeOptions = webdriver.ChromeOptions()
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+
+
 from selenium import webdriver
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support.ui import WebDriverWait
@@ -27,7 +49,7 @@ from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 
 firefoxOptions = Options()
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
-firefoxOptions.add_argument(f'user-agent={user_agent}')
+# firefoxOptions.add_argument(f'user-agent={user_agent}')
 firefoxOptions.add_argument('--headless')
 firefoxOptions.add_argument('--no-sandbox')
 #firefoxOptions.add_argument('--log-level=3')
