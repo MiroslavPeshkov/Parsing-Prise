@@ -19,6 +19,35 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+firefoxOptions = Options()
+firefoxOptions.add_argument('--headless')
+firefoxOptions.add_argument('--no-sandbox')
+#firefoxOptions.add_argument('--log-level=3')
+firefoxOptions.add_argument("--window-size=1920,1080")
+firefoxOptions.add_argument('--disable-dev-shm-usage')
+#firefoxOptions.add_argument("--start-maximized")
+firefoxOptions.add_argument('--ignore-certificate-errors')
+firefoxOptions.add_argument('--allow-running-insecure-content')
+
+path = os.getcwd()
+print(path)
+st.write(path)
+@st.experimental_singleton
+def installff():
+  os.system('sbase install geckodriver')
+  os.system('ln -s /home/appuser/venv/lib/python3.9/site-packages/seleniumbase/drivers/geckodriver /home/appuser/venv/bin/geckodriver.exe')
+
+_ = installff()
+
+
+
+
+
 chromeOptions = webdriver.ChromeOptions()
 import streamlit as st
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
@@ -95,8 +124,7 @@ if uploadedFile is not None:
 
         # THE SECOND SITE
         url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
-        browser = webdriver.Chrome(executable_path=r'C:\Users\Мирослав\OneDrive\Рабочий стол\chromedriver.exe',
-                                   chrome_options=chromeOptions)
+        browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(7)
         browser.get(url_2)
         time.sleep(10)
@@ -132,8 +160,7 @@ if uploadedFile is not None:
 
         # THE THIRD SITE
         url_3 = f'https://www.citilink.ru/search/?text={goods}'
-        browser = webdriver.Chrome(executable_path=r'C:\Users\Мирослав\OneDrive\Рабочий стол\chromedriver.exe',
-                                   chrome_options=chromeOptions)
+        browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_3)
         time.sleep(3)
@@ -175,8 +202,7 @@ if uploadedFile is not None:
 
         # THE FORTH SITE
         url_4 = f'https://www.xcom-shop.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT'
-        browser = webdriver.Chrome(executable_path=r'C:\Users\Мирослав\OneDrive\Рабочий стол\chromedriver.exe',
-                                   chrome_options=chromeOptions)
+        browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_4)
         time.sleep(3)
@@ -189,8 +215,7 @@ if uploadedFile is not None:
         links_all = ['https://www.xcom-shop.ru' + i.get('href') for i in links_]
         for l in links_all:
             st.write('Now - ', l, 'for goods - ', goods)
-            browser = webdriver.Chrome(executable_path=r'C:\Users\Мирослав\OneDrive\Рабочий стол\chromedriver.exe',
-                                       chrome_options=chromeOptions)
+            browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
             browser.implicitly_wait(2)
             browser.get(l)
             time.sleep(2)
