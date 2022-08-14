@@ -33,6 +33,7 @@ firefoxOptions.add_argument('--disable-dev-shm-usage')
 #firefoxOptions.add_argument("--start-maximized")
 firefoxOptions.add_argument('--ignore-certificate-errors')
 firefoxOptions.add_argument('--allow-running-insecure-content')
+import os
 
 path = os.getcwd()
 print(path)
