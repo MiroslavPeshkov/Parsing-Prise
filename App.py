@@ -23,7 +23,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 # chromeOptions = webdriver.ChromeOptions()
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+# from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -48,7 +48,7 @@ from selenium.webdriver.support.ui import Select
 from webdriver_manager.firefox import GeckoDriverManager
 # from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+# from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 # from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 firefoxOptions = Options()
