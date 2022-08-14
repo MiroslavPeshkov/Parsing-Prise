@@ -39,9 +39,9 @@ firefoxOptions.add_argument('--allow-running-insecure-content')
 import os
 import numpy as np
 
-# path = os.getcwd()
+path = os.getcwd()
 # print(path)
-# st.write(path)
+st.write(path)
 @st.experimental_singleton
 def installff():
   os.system('sbase install geckodriver')
