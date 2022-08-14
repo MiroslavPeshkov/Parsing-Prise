@@ -14,6 +14,42 @@ from shutil import which
 import os, sys
 import numpy as np
 
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.keys import Keys
+# from selenium.common.exceptions import TimeoutException
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.common.action_chains import ActionChains
+# from selenium.webdriver.support.ui import Select
+# # chromeOptions = webdriver.ChromeOptions()
+# # from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+
+# from selenium import webdriver
+# from selenium.common.exceptions import TimeoutException
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.firefox.options import Options
+# from selenium.webdriver.firefox.service import Service
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.support.ui import WebDriverWait
+
+
+
+# from selenium import webdriver
+# from selenium.webdriver.common.alert import Alert
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.keys import Keys
+# from selenium.common.exceptions import TimeoutException
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.common.action_chains import ActionChains
+# from selenium.webdriver.support.ui import Select
+# from webdriver_manager.firefox import GeckoDriverManager
+# # from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+# from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+# # from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+# # from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -22,9 +58,8 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
-# chromeOptions = webdriver.ChromeOptions()
-# from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-
+chromeOptions = webdriver.ChromeOptions()
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -32,25 +67,9 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
-
-
-from selenium import webdriver
-from selenium.webdriver.common.alert import Alert
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import Select
 from webdriver_manager.firefox import GeckoDriverManager
-# from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-# from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-# from selenium.webdriver.firefox.options import Options as FirefoxOptions
-
 firefoxOptions = Options()
 FIREFOXPATH = which("firefox")
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
@@ -58,16 +77,13 @@ user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 # firefoxOptions.binary_location = "/usr/bin/firefox"
 firefoxOptions.add_argument('--headless')
 firefoxOptions.add_argument('--no-sandbox')
-#firefoxOptions.add_argument('--log-level=3')
 firefoxOptions.add_argument("--window-size=1920,1080")
 firefoxOptions.add_argument('--disable-dev-shm-usage')
-#firefoxOptions.add_argument("--start-maximized")
 firefoxOptions.add_argument('--ignore-certificate-errors')
 firefoxOptions.add_argument('--allow-running-insecure-content')
 firefoxOptions.binary = FIREFOXPATH
 
 path = os.getcwd()
-# print(path)
 st.write(path)
 
 @st.experimental_singleton
