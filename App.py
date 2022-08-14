@@ -126,7 +126,7 @@ if uploadedFile is not None:
 
         # THE SECOND SITE
         url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
-        browser = webdriver.Chrome(executable_path=r'/home/appuser/geckodriver.exe', options = firefoxOptions)
+        browser = webdriver.Chrome(executable_path=r'/app/parsing-prise/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(7)
         browser.get(url_2)
         time.sleep(10)
