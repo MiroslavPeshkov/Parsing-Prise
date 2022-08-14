@@ -126,7 +126,7 @@ if uploadedFile is not None:
 
         # THE SECOND SITE
         url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
-        browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+        browser = webdriver.Chrome(executable_path=r'/home/appuser/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(7)
         browser.get(url_2)
         time.sleep(10)
@@ -162,7 +162,7 @@ if uploadedFile is not None:
 
         # THE THIRD SITE
         url_3 = f'https://www.citilink.ru/search/?text={goods}'
-        browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+        browser = webdriver.Chrome(executable_path=r'/home/appuser/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_3)
         time.sleep(3)
@@ -204,7 +204,7 @@ if uploadedFile is not None:
 
         # THE FORTH SITE
         url_4 = f'https://www.xcom-shop.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT'
-        browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+        browser = webdriver.Chrome(executable_path=r'/home/appuser/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_4)
         time.sleep(3)
@@ -217,7 +217,7 @@ if uploadedFile is not None:
         links_all = ['https://www.xcom-shop.ru' + i.get('href') for i in links_]
         for l in links_all:
             st.write('Now - ', l, 'for goods - ', goods)
-            browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+            browser = webdriver.Chrome(executable_path=r'/home/appuser/geckodriver.exe', options = firefoxOptions)
             browser.implicitly_wait(2)
             browser.get(l)
             time.sleep(2)
