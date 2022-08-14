@@ -81,164 +81,164 @@ if uploadedFile is not None:
     good_links = {}
     browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
     for goods in s_all_final:
-    good_links[goods] = []
-    try:
-        # THE FIRST SITE
-        url_1 = f'https://www.tinko.ru/search?q={goods}'
-        res = requests.get(url_1)
-        soup = BeautifulSoup(res.text, 'lxml')
-        links = soup.find_all('p', {'class', 'catalog-product__title'})
-        links_ = [i.find('a') for i in links]
-        links_all = ['https://www.tinko.ru' + i.get('href') for i in links_]
-        for l in links_all:
-            st.write('Now - ', l, 'for goods - ', goods)
-            r = requests.get(l)
-            soup = BeautifulSoup(r.text, 'lxml')
-            try:
-                first_pattern = soup.find('h1').text
-                second_pattern = soup.find('h2').text
-            except Exception as ex:
-                st.write(ex)
-                st.write(l)
-            if goods in first_pattern or goods in second_pattern:
-                st.write('Yes price')
-                try:
-                    price = soup.find('span', {'class', 'product-detail__price-value'}).text.replace(' ', '').replace(
-                        ',', '.')
-                    st.write(price, 'for site - ', goods)
-                    good_links[goods].append(price)
-                    break
-                except Exception as ex:
-                    st.write(ex)
-                    st.write(l)
-                    break
-            else:
-                continue
-        # THE SECOND SITE
-        url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
-        #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
-        browser.implicitly_wait(7)
-        browser.get(url_2)
-        time.sleep(10)
-        html = browser.page_source
-        soup_ = BeautifulSoup(html, 'lxml')
-        links = soup_.find_all('div', {'class': 'digi-product'})
-        links_ = [i.find('a') for i in links]
-        links_all = ['https://videoglaz.ru' + i.get('href') for i in links_]
-        for l in links_all:
-            st.write('Now - ', l, 'for goods - ', goods)
-            res = requests.get(l)
-            soup = BeautifulSoup(res.text, 'lxml')
-            try:
-                first_pattern = soup.find('h1', {'class': 'm-0 good-title'}).text
-                second_pattern = soup.find('div', {'class': 'tab-content m-3'}).text
-            except Exception as ex:
-                st.write(ex)
-                st.write(l)
-            if goods in first_pattern or goods in second_pattern:
-                st.write('Yes price')
-                try:
-                    price = soup.find('div', {'class': 'cenaWrap'}).find('b').text.replace(' ', '').replace(',', '.')
-                    st.write(price, 'for site - ', goods)
-                    good_links[goods].append(price)
-                    break
-                except Exception as ex:
-                    st.write(ex)
-                    st.write(l)
-                    break
-            else:
-                continue
-                # THE THIRD SITE
-        url_3 = f'https://www.citilink.ru/search/?text={goods}'
-        #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
-        browser.implicitly_wait(2)
-        browser.get(url_3)
-        time.sleep(3)
-        browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-        time.sleep(2)
-        html = browser.page_source
-        soup = BeautifulSoup(html, 'lxml')
-        links = soup.find_all('a', {'class': 'ProductCardVertical__name Link js--Link Link_type_default'})
-        links_all = ['https://www.citilink.ru' + i.get('href') for i in links]
-        for l in links_all[:10]:
-            st.write('Now - ', l, 'for goods - ', goods)
-            browser.get(l)
-            time.sleep(4)
-            html = browser.page_source
-            time.sleep(2)
-            soup = BeautifulSoup(html, 'lxml')
-            try:
-                first_pattern = soup.find('h1').text
-            except Exception as ex:
-                st.write(ex)
-                st.write(l)
-            if goods in first_pattern:
-                try:
-                    price = soup.find('span', {
-                        'class': "ProductPrice__price ProductCartFixedBlockNEW__price__price"}).text.replace('\n',
-                                                                                                             '').replace(
-                        '₽', '').replace(' ', '').replace(',', '.').strip()
-                    st.write(price, 'for site - ', goods)
-                    good_links[goods].append(price)
-                    break
-                except Exception as ex:
-                    st.write(ex)
-                    st.write(l)
-                    break
-            else:
-                continue
-    
-        # THE FORTH SITE
-        url_4 = f'https://sort.diginetica.net/search?st={goods}&apiKey=D1K76714Q4&strategy=vectors_extended,zero_queries_predictor&fullData=true&withCorrection=true&withFacets=true&treeFacets=true&regionId=global&useCategoryPrediction=true&size=20&offset=0&showUnavailable=true&unavailableMultiplier=0.2&preview=false&withSku=false&sort=DEFAULT'
-        res = requests.get(url_4)
-        time.sleep(2)
-        res = res.text
-        js = json.loads(res)
-        js = js['products']
-        for good in js:
-            name = good['name']
-            if goods in name:
-                price = good['price']
-                st.write(price, 'for site - ', goods)
-                good_links[goods].append(price)
-                break
-    
-        # THE FIFTH SITE
-        headers = {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.148 YaBrowser/22.7.'}
-        url_5 = f'https://www.etm.ru/catalog?searchValue={goods}&rows=12'
-        r = requests.get(url_5, headers=headers)
-        soup = BeautifulSoup(r.text, 'lxml')
-        links = soup.find_all('a', {'target': '_self'})
-        links_all = ['https://www.etm.ru' + i.get('href') for i in links]
-        for l in links_all:
-            st.write('Now - ', l, 'for goods - ', goods)
-            res = requests.get(l, headers=headers)
-            soup = BeautifulSoup(res.text, 'lxml')
-            try:
-                first_pattern = soup.find('h1').text
-                second_patter = soup.find('p', {'class', 'jss86'}).text
-            except Exception as ex:
-                st.write(ex)
-                st.write(l)
-            if goods in first_pattern or goods in second_patter:
-                st.write('Yes price for -', goods)
-                try:
-                    price = soup.find(text=re.compile('Ваша цена')).find_next('p').text.replace('₽', '').replace(',',
-                                                                                                                 '.').replace(
-                        ' ', '')
-                    st.write(price, 'for site - ', l)
-                    good_links[goods].append(price)
-                    break
-                except Exception as ex:
-                    st.write(ex)
-                    st.write(l)
-                    break
-            else:
-                continue
-    except Exception as ex:
-        st.write(ex)
-        pass
+      good_links[goods] = []
+      try:
+          # THE FIRST SITE
+          url_1 = f'https://www.tinko.ru/search?q={goods}'
+          res = requests.get(url_1)
+          soup = BeautifulSoup(res.text, 'lxml')
+          links = soup.find_all('p', {'class', 'catalog-product__title'})
+          links_ = [i.find('a') for i in links]
+          links_all = ['https://www.tinko.ru' + i.get('href') for i in links_]
+          for l in links_all:
+              st.write('Now - ', l, 'for goods - ', goods)
+              r = requests.get(l)
+              soup = BeautifulSoup(r.text, 'lxml')
+              try:
+                  first_pattern = soup.find('h1').text
+                  second_pattern = soup.find('h2').text
+              except Exception as ex:
+                  st.write(ex)
+                  st.write(l)
+              if goods in first_pattern or goods in second_pattern:
+                  st.write('Yes price')
+                  try:
+                      price = soup.find('span', {'class', 'product-detail__price-value'}).text.replace(' ', '').replace(
+                          ',', '.')
+                      st.write(price, 'for site - ', goods)
+                      good_links[goods].append(price)
+                      break
+                  except Exception as ex:
+                      st.write(ex)
+                      st.write(l)
+                      break
+              else:
+                  continue
+          # THE SECOND SITE
+          url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
+          #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+          browser.implicitly_wait(7)
+          browser.get(url_2)
+          time.sleep(10)
+          html = browser.page_source
+          soup_ = BeautifulSoup(html, 'lxml')
+          links = soup_.find_all('div', {'class': 'digi-product'})
+          links_ = [i.find('a') for i in links]
+          links_all = ['https://videoglaz.ru' + i.get('href') for i in links_]
+          for l in links_all:
+              st.write('Now - ', l, 'for goods - ', goods)
+              res = requests.get(l)
+              soup = BeautifulSoup(res.text, 'lxml')
+              try:
+                  first_pattern = soup.find('h1', {'class': 'm-0 good-title'}).text
+                  second_pattern = soup.find('div', {'class': 'tab-content m-3'}).text
+              except Exception as ex:
+                  st.write(ex)
+                  st.write(l)
+              if goods in first_pattern or goods in second_pattern:
+                  st.write('Yes price')
+                  try:
+                      price = soup.find('div', {'class': 'cenaWrap'}).find('b').text.replace(' ', '').replace(',', '.')
+                      st.write(price, 'for site - ', goods)
+                      good_links[goods].append(price)
+                      break
+                  except Exception as ex:
+                      st.write(ex)
+                      st.write(l)
+                      break
+              else:
+                  continue
+                  # THE THIRD SITE
+          url_3 = f'https://www.citilink.ru/search/?text={goods}'
+          #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+          browser.implicitly_wait(2)
+          browser.get(url_3)
+          time.sleep(3)
+          browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+          time.sleep(2)
+          html = browser.page_source
+          soup = BeautifulSoup(html, 'lxml')
+          links = soup.find_all('a', {'class': 'ProductCardVertical__name Link js--Link Link_type_default'})
+          links_all = ['https://www.citilink.ru' + i.get('href') for i in links]
+          for l in links_all[:10]:
+              st.write('Now - ', l, 'for goods - ', goods)
+              browser.get(l)
+              time.sleep(4)
+              html = browser.page_source
+              time.sleep(2)
+              soup = BeautifulSoup(html, 'lxml')
+              try:
+                  first_pattern = soup.find('h1').text
+              except Exception as ex:
+                  st.write(ex)
+                  st.write(l)
+              if goods in first_pattern:
+                  try:
+                      price = soup.find('span', {
+                          'class': "ProductPrice__price ProductCartFixedBlockNEW__price__price"}).text.replace('\n',
+                                                                                                               '').replace(
+                          '₽', '').replace(' ', '').replace(',', '.').strip()
+                      st.write(price, 'for site - ', goods)
+                      good_links[goods].append(price)
+                      break
+                  except Exception as ex:
+                      st.write(ex)
+                      st.write(l)
+                      break
+              else:
+                  continue
+
+          # THE FORTH SITE
+          url_4 = f'https://sort.diginetica.net/search?st={goods}&apiKey=D1K76714Q4&strategy=vectors_extended,zero_queries_predictor&fullData=true&withCorrection=true&withFacets=true&treeFacets=true&regionId=global&useCategoryPrediction=true&size=20&offset=0&showUnavailable=true&unavailableMultiplier=0.2&preview=false&withSku=false&sort=DEFAULT'
+          res = requests.get(url_4)
+          time.sleep(2)
+          res = res.text
+          js = json.loads(res)
+          js = js['products']
+          for good in js:
+              name = good['name']
+              if goods in name:
+                  price = good['price']
+                  st.write(price, 'for site - ', goods)
+                  good_links[goods].append(price)
+                  break
+
+          # THE FIFTH SITE
+          headers = {
+              'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.148 YaBrowser/22.7.'}
+          url_5 = f'https://www.etm.ru/catalog?searchValue={goods}&rows=12'
+          r = requests.get(url_5, headers=headers)
+          soup = BeautifulSoup(r.text, 'lxml')
+          links = soup.find_all('a', {'target': '_self'})
+          links_all = ['https://www.etm.ru' + i.get('href') for i in links]
+          for l in links_all:
+              st.write('Now - ', l, 'for goods - ', goods)
+              res = requests.get(l, headers=headers)
+              soup = BeautifulSoup(res.text, 'lxml')
+              try:
+                  first_pattern = soup.find('h1').text
+                  second_patter = soup.find('p', {'class', 'jss86'}).text
+              except Exception as ex:
+                  st.write(ex)
+                  st.write(l)
+              if goods in first_pattern or goods in second_patter:
+                  st.write('Yes price for -', goods)
+                  try:
+                      price = soup.find(text=re.compile('Ваша цена')).find_next('p').text.replace('₽', '').replace(',',
+                                                                                                                   '.').replace(
+                          ' ', '')
+                      st.write(price, 'for site - ', l)
+                      good_links[goods].append(price)
+                      break
+                  except Exception as ex:
+                      st.write(ex)
+                      st.write(l)
+                      break
+              else:
+                  continue
+      except Exception as ex:
+          st.write(ex)
+          pass
                 
     browser.quit()
     dict_2 = {}
