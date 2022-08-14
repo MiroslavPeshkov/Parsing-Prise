@@ -208,7 +208,7 @@ if uploadedFile is not None:
             name = good['name']
             if goods in name:
                 price = good['price']
-                st.write(price, 'for site - ')
+                st.write(price, 'for site - ', goods)
                 good_links[goods].append(price)
                 break
 
