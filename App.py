@@ -210,6 +210,7 @@ if uploadedFile is not None:
         links = soup.find_all('div', {'class': 'digi-product'})
         links_ = [i.find('a') for i in links]
         links_all = ['https://www.xcom-shop.ru' + i.get('href') for i in links_]
+        st.write(links_all)
         for l in links_all:
             st.write('Now - ', l, 'for goods - ', goods)
             browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
