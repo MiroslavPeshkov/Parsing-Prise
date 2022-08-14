@@ -37,6 +37,7 @@ firefoxOptions.add_argument('--disable-dev-shm-usage')
 firefoxOptions.add_argument('--ignore-certificate-errors')
 firefoxOptions.add_argument('--allow-running-insecure-content')
 import os
+import numpy as np
 
 # path = os.getcwd()
 # print(path)
