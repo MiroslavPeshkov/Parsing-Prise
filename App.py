@@ -76,7 +76,7 @@ if uploadedFile is not None:
         else:
             s_all_final.append(i)
     s_all_final = list(map(lambda x: x.replace('\n', ''), s_all_final))
-    s_all_final = s_all_final[10:14]
+    s_all_final = s_all_final[:5]
 
     st.write('Begin')
     good_links = {}
