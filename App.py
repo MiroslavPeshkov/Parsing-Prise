@@ -160,7 +160,7 @@ if uploadedFile is not None:
           soup = BeautifulSoup(html, 'lxml')
           links = soup.find_all('a', {'class': 'ProductCardVertical__name Link js--Link Link_type_default'})
           links_all = ['https://www.citilink.ru' + i.get('href') for i in links]
-          for l in links_all[:10]:
+          for l in links_all[:5]:
               st.write('Now - ', l, 'for goods - ', goods)
               browser.get(l)
               time.sleep(4)
