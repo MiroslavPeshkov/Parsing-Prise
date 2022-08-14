@@ -81,7 +81,8 @@ if uploadedFile is not None:
     good_links = {}
     browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
     for goods in s_all_final:
-        good_links[goods] = []
+    good_links[goods] = []
+    try:
         # THE FIRST SITE
         url_1 = f'https://www.tinko.ru/search?q={goods}'
         res = requests.get(url_1)
@@ -104,7 +105,7 @@ if uploadedFile is not None:
                 try:
                     price = soup.find('span', {'class', 'product-detail__price-value'}).text.replace(' ', '').replace(
                         ',', '.')
-                    st.write(price, 'for site - ', l)
+                    st.write(price, 'for site - ', goods)
                     good_links[goods].append(price)
                     break
                 except Exception as ex:
@@ -115,7 +116,7 @@ if uploadedFile is not None:
                 continue
         # THE SECOND SITE
         url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
-#         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+        #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(7)
         browser.get(url_2)
         time.sleep(10)
@@ -138,7 +139,7 @@ if uploadedFile is not None:
                 st.write('Yes price')
                 try:
                     price = soup.find('div', {'class': 'cenaWrap'}).find('b').text.replace(' ', '').replace(',', '.')
-                    st.write(price, 'for site - ', l)
+                    st.write(price, 'for site - ', goods)
                     good_links[goods].append(price)
                     break
                 except Exception as ex:
@@ -146,10 +147,10 @@ if uploadedFile is not None:
                     st.write(l)
                     break
             else:
-                continue      
-        # THE THIRD SITE
+                continue
+                # THE THIRD SITE
         url_3 = f'https://www.citilink.ru/search/?text={goods}'
-#         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+        #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_3)
         time.sleep(3)
@@ -172,13 +173,12 @@ if uploadedFile is not None:
                 st.write(ex)
                 st.write(l)
             if goods in first_pattern:
-                st.write('Yes price')
                 try:
                     price = soup.find('span', {
                         'class': "ProductPrice__price ProductCartFixedBlockNEW__price__price"}).text.replace('\n',
                                                                                                              '').replace(
                         '₽', '').replace(' ', '').replace(',', '.').strip()
-                    st.write(price, 'for site - ', l)
+                    st.write(price, 'for site - ', goods)
                     good_links[goods].append(price)
                     break
                 except Exception as ex:
@@ -187,7 +187,7 @@ if uploadedFile is not None:
                     break
             else:
                 continue
-
+    
         # THE FORTH SITE
         url_4 = f'https://sort.diginetica.net/search?st={goods}&apiKey=D1K76714Q4&strategy=vectors_extended,zero_queries_predictor&fullData=true&withCorrection=true&withFacets=true&treeFacets=true&regionId=global&useCategoryPrediction=true&size=20&offset=0&showUnavailable=true&unavailableMultiplier=0.2&preview=false&withSku=false&sort=DEFAULT'
         res = requests.get(url_4)
@@ -202,11 +202,7 @@ if uploadedFile is not None:
                 st.write(price, 'for site - ', goods)
                 good_links[goods].append(price)
                 break
-
     
-
-       
-        
         # THE FIFTH SITE
         headers = {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.148 YaBrowser/22.7.'}
@@ -226,7 +222,7 @@ if uploadedFile is not None:
                 st.write(ex)
                 st.write(l)
             if goods in first_pattern or goods in second_patter:
-                st.write('Yes price')
+                st.write('Yes price for -', goods)
                 try:
                     price = soup.find(text=re.compile('Ваша цена')).find_next('p').text.replace('₽', '').replace(',',
                                                                                                                  '.').replace(
@@ -240,6 +236,10 @@ if uploadedFile is not None:
                     break
             else:
                 continue
+    except Exception as ex:
+        st.write(ex)
+        pass
+                
     browser.quit()
     dict_2 = {}
     for k, v in good_links.items():
