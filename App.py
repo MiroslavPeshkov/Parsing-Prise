@@ -211,7 +211,7 @@ if uploadedFile is not None:
         links_all = ['https://www.xcom-shop.ru' + i.get('href') for i in links_]
         for l in links_all:
             st.write('Now - ', l, 'for goods - ', goods)
-            browser = webdriver.Chrome(executable_path=r'/home/appuser/geckodriver.exe', options = firefoxOptions)
+            browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
             browser.implicitly_wait(2)
             browser.get(l)
             time.sleep(2)
