@@ -22,8 +22,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 
 firefoxOptions = Options()
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
@@ -126,7 +126,7 @@ if uploadedFile is not None:
 
         # THE SECOND SITE
         url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
-        browser = webdriver.Chrome(executable_path=r'/app/parsing-prise/geckodriver.exe', options = firefoxOptions)
+        browser = webdriver.Chrome(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(7)
         browser.get(url_2)
         time.sleep(10)
