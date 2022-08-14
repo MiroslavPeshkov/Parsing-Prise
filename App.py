@@ -36,30 +36,19 @@ firefoxOptions.add_argument('--disable-dev-shm-usage')
 #firefoxOptions.add_argument("--start-maximized")
 firefoxOptions.add_argument('--ignore-certificate-errors')
 firefoxOptions.add_argument('--allow-running-insecure-content')
-import os
+import os, sys
 import numpy as np
 
 path = os.getcwd()
 # print(path)
 st.write(path)
+
 @st.experimental_singleton
 def installff():
   os.system('sbase install geckodriver')
   os.system('ln -s /home/appuser/venv/lib/python3.9/site-packages/seleniumbase/drivers/geckodriver /home/appuser/venv/bin/geckodriver.exe')
 
 _ = installff()
-
-
-# chromeOptions = webdriver.ChromeOptions()
-# import streamlit as st
-# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
-# chromeOptions.add_argument(f'user-agent={user_agent}')
-# chromeOptions.add_argument('--headless')
-# chromeOptions.add_argument('--no-sandbox')
-# chromeOptions.add_argument('--disable-dev-shm-usage')
-# chromeOptions.add_argument("--start-maximized")
-# import numpy as np
-
 
 st.title('Парсинг цен')
 st.subheader("Контейнер для загрузки Excel")
