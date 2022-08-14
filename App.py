@@ -82,7 +82,7 @@ if uploadedFile is not None:
     good_links = {}
     for goods in s_all_final:
         good_links[goods] = []
-
+        browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
 
         # THE FIRST SITE
         url_1 = f'https://www.tinko.ru/search?q={goods}'
@@ -119,7 +119,7 @@ if uploadedFile is not None:
 
         # THE SECOND SITE
         url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
-        browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+#         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(7)
         browser.get(url_2)
         time.sleep(10)
@@ -151,12 +151,12 @@ if uploadedFile is not None:
                     break
             else:
                 continue
-        browser.quit()        
+#         browser.quit()        
 
 
         # THE THIRD SITE
         url_3 = f'https://www.citilink.ru/search/?text={goods}'
-        browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+#         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_3)
         time.sleep(3)
@@ -194,11 +194,11 @@ if uploadedFile is not None:
                     break
             else:
                 continue
-        browser.quit()
+#         browser.quit()
 
         # THE FORTH SITE
         url_4 = f'https://www.xcom-shop.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT'
-        browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+#         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
         browser.implicitly_wait(2)
         browser.get(url_4)
         time.sleep(3)
