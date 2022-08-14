@@ -81,9 +81,9 @@ if uploadedFile is not None:
 
     st.write('Begin')
     good_links = {}
+    browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
     for goods in s_all_final:
         good_links[goods] = []
-        browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
 
 #         # THE FIRST SITE
 #         url_1 = f'https://www.tinko.ru/search?q={goods}'
@@ -249,7 +249,7 @@ if uploadedFile is not None:
 #                     break
 #             else:
 #                 continue
-
+    browser.quit()
     dict_2 = {}
     for k, v in good_links.items():
         flot_no = list(filter(None, v))
