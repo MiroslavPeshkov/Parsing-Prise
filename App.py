@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import time
+import streamlit as st
 import csv
 import pandas as pd
 import re
@@ -25,6 +26,8 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 firefoxOptions = Options()
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
+firefoxOptions.add_argument(f'user-agent={user_agent}')
 firefoxOptions.add_argument('--headless')
 firefoxOptions.add_argument('--no-sandbox')
 #firefoxOptions.add_argument('--log-level=3')
@@ -35,9 +38,9 @@ firefoxOptions.add_argument('--ignore-certificate-errors')
 firefoxOptions.add_argument('--allow-running-insecure-content')
 import os
 
-path = os.getcwd()
-print(path)
-st.write(path)
+# path = os.getcwd()
+# print(path)
+# st.write(path)
 @st.experimental_singleton
 def installff():
   os.system('sbase install geckodriver')
@@ -46,18 +49,15 @@ def installff():
 _ = installff()
 
 
-
-
-
-chromeOptions = webdriver.ChromeOptions()
-import streamlit as st
-user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
-chromeOptions.add_argument(f'user-agent={user_agent}')
-chromeOptions.add_argument('--headless')
-chromeOptions.add_argument('--no-sandbox')
-chromeOptions.add_argument('--disable-dev-shm-usage')
-chromeOptions.add_argument("--start-maximized")
-import numpy as np
+# chromeOptions = webdriver.ChromeOptions()
+# import streamlit as st
+# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
+# chromeOptions.add_argument(f'user-agent={user_agent}')
+# chromeOptions.add_argument('--headless')
+# chromeOptions.add_argument('--no-sandbox')
+# chromeOptions.add_argument('--disable-dev-shm-usage')
+# chromeOptions.add_argument("--start-maximized")
+# import numpy as np
 
 
 st.title('Парсинг цен')
