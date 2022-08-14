@@ -51,6 +51,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 firefoxOptions = Options()
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
 # firefoxOptions.add_argument(f'user-agent={user_agent}')
+firefoxOptions.binary_location = "/usr/bin/firefox"
 firefoxOptions.add_argument('--headless')
 firefoxOptions.add_argument('--no-sandbox')
 #firefoxOptions.add_argument('--log-level=3')
