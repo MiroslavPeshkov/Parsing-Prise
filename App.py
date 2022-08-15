@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-import r
 import streamlit as st
 import csv
 import pandas as pd
