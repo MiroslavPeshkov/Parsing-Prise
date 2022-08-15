@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import time
+import r
 import streamlit as st
 import csv
 import pandas as pd
@@ -90,7 +91,7 @@ if uploadedFile is not None:
           links = soup.find_all('p', {'class', 'catalog-product__title'})
           links_ = [i.find('a') for i in links]
           links_all = ['https://www.tinko.ru' + i.get('href') for i in links_]
-          for l in links_all[:len(links_all) / 2]:
+          for l in links_all[:int(round((len(s_all_final) -5) /2, 0))]:
               st.write('Now - ', l, 'for goods - ', goods)
               r = requests.get(l)
               soup = BeautifulSoup(r.text, 'lxml')
@@ -125,7 +126,7 @@ if uploadedFile is not None:
           links = soup_.find_all('div', {'class': 'digi-product'})
           links_ = [i.find('a') for i in links]
           links_all = ['https://videoglaz.ru' + i.get('href') for i in links_]
-          for l in links_all[:len(links_all) / 2]:
+          for l in links_all[:int(round((len(s_all_final) -5) /2, 0))]:
               st.write('Now - ', l, 'for goods - ', goods)
               res = requests.get(l)
               soup = BeautifulSoup(res.text, 'lxml')
@@ -211,7 +212,7 @@ if uploadedFile is not None:
           soup = BeautifulSoup(r.text, 'lxml')
           links = soup.find_all('a', {'target': '_self'})
           links_all = ['https://www.etm.ru' + i.get('href') for i in links]
-          for l in links_all[:len(links_all) / 2]:
+          for l in links_all[:int(round((len(s_all_final) -5) /2, 0))]:
               st.write('Now - ', l, 'for goods - ', goods)
               res = requests.get(l, headers=headers)
               soup = BeautifulSoup(res.text, 'lxml')
