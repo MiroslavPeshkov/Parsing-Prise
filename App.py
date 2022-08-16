@@ -59,24 +59,64 @@ st.title('Парсинг цен')
 st.subheader("Контейнер для загрузки Excel")
 uploadedFile = st.file_uploader("Загрузите txt file",  type=['csv','xlsx'],accept_multiple_files=False,key="fileUploader")
 if uploadedFile is not None:
-    df = pd.read_excel(uploadedFile)
-    name = df['Артикул, марка '].tolist()
-    articl = df['Наименование'].tolist()
-    all_name = [[i, j] for i, j in zip(articl, name)]
-    s_all = []
-    for i in range(len(all_name)):
-        if type(all_name[i][1]) == str:
-            s_all.append(all_name[i][1])
-        elif all_name[i][1] is np.nan:
-            all_name[i][1] = all_name[i][0]
-            s_all.append(str(all_name[i][1]))
-    s_all_final = []
-    for i in s_all:
-        if i == 'nan':
-            continue
-        else:
-            s_all_final.append(i)
-    s_all_final = list(map(lambda x: x.replace('\n', ''), s_all_final))
+    if len(df.columns) > 10:
+        st.write('Second type of docs - ', name_file)
+        df.set_index('Unnamed: 0', inplace = True)
+        df = df.loc['№ П/П':]
+        headers = df.iloc[0].tolist()
+        df.columns = headers
+        df.drop(axis = 0, index = '№ П/П', inplace = True)
+        s_all_final = df['Наименование строительного ресурса, затрат'].tolist()
+        s_all_final = s_all_final[1:]
+        s_all_final = list(map(lambda x: x if type(x) == str else None, s_all_final))
+        s_all_final = list(filter(None, s_all_final))
+        s_all_final = list(dict.fromkeys(s_all_final))
+
+    if len(df.columns) < 10:
+        st.write('First type of docs - ', name_file)
+        name = df['Артикул, марка '].tolist()
+        articl = df['Наименование'].tolist()
+        all_name = [[i, j] for i, j in zip(articl, name)]
+        s_all = []
+        for i in range (len(all_name)):
+            if type(all_name[i][1]) == str:
+                s_all.append(all_name[i][1])
+            elif all_name[i][1] is np.nan:
+                all_name[i][1] = all_name[i][0]
+                s_all.append(str(all_name[i][1]))
+        s_all_final = []
+        for i in s_all:
+            if i == 'nan':
+                continue
+            else:
+                s_all_final.append(i)
+        s_all_final = list(map(lambda x: x.replace('\n', ''), s_all_final))
+    
+    
+    
+#     df = pd.read_excel(uploadedFile)
+#     name = df['Артикул, марка '].tolist()
+#     articl = df['Наименование'].tolist()
+#     all_name = [[i, j] for i, j in zip(articl, name)]
+#     s_all = []
+#     for i in range(len(all_name)):
+#         if type(all_name[i][1]) == str:
+#             s_all.append(all_name[i][1])
+#         elif all_name[i][1] is np.nan:
+#             all_name[i][1] = all_name[i][0]
+#             s_all.append(str(all_name[i][1]))
+#     s_all_final = []
+#     for i in s_all:
+#         if i == 'nan':
+#             continue
+#         else:
+#             s_all_final.append(i)
+#     s_all_final = list(map(lambda x: x.replace('\n', ''), s_all_final))
+    
+    
+    
+    
+    
     st.write('Begin')
     good_links = {}
     browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
