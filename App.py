@@ -94,30 +94,7 @@ if uploadedFile is not None:
         s_all_final = list(map(lambda x: x.replace('\n', ''), s_all_final))
     
     
-    
-#     df = pd.read_excel(uploadedFile)
-#     name = df['Артикул, марка '].tolist()
-#     articl = df['Наименование'].tolist()
-#     all_name = [[i, j] for i, j in zip(articl, name)]
-#     s_all = []
-#     for i in range(len(all_name)):
-#         if type(all_name[i][1]) == str:
-#             s_all.append(all_name[i][1])
-#         elif all_name[i][1] is np.nan:
-#             all_name[i][1] = all_name[i][0]
-#             s_all.append(str(all_name[i][1]))
-#     s_all_final = []
-#     for i in s_all:
-#         if i == 'nan':
-#             continue
-#         else:
-#             s_all_final.append(i)
-#     s_all_final = list(map(lambda x: x.replace('\n', ''), s_all_final))
-    
-    
-    
-    
-    
+   
     st.write('Begin')
     good_links = {}
     browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
@@ -127,6 +104,7 @@ if uploadedFile is not None:
           # THE FIRST SITE
           url_1 = f'https://www.tinko.ru/search?q={goods}'
           res = requests.get(url_1)
+          time.sleep(1.5)
           soup = BeautifulSoup(res.text, 'lxml')
           links = soup.find_all('p', {'class', 'catalog-product__title'})
           links_ = [i.find('a') for i in links]
@@ -134,6 +112,7 @@ if uploadedFile is not None:
           for l in links_all[:int(round((len(s_all_final) -5) /2, 0))]:
               st.write('Now - ', l, 'for goods - ', goods)
               r = requests.get(l)
+              time.sleep(1.5)
               soup = BeautifulSoup(r.text, 'lxml')
               try:
                   first_pattern = soup.find('h1').text
@@ -160,7 +139,7 @@ if uploadedFile is not None:
           #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
           browser.implicitly_wait(7)
           browser.get(url_2)
-          time.sleep(10)
+          time.sleep(5)
           html = browser.page_source
           soup_ = BeautifulSoup(html, 'lxml')
           links = soup_.find_all('div', {'class': 'digi-product'})
@@ -169,6 +148,7 @@ if uploadedFile is not None:
           for l in links_all[:int(round((len(s_all_final) -5) /2, 0))]:
               st.write('Now - ', l, 'for goods - ', goods)
               res = requests.get(l)
+              time.sleep(1.5)
               soup = BeautifulSoup(res.text, 'lxml')
               try:
                   first_pattern = soup.find('h1', {'class': 'm-0 good-title'}).text
@@ -204,7 +184,7 @@ if uploadedFile is not None:
           for l in links_all[:5]:
               st.write('Now - ', l, 'for goods - ', goods)
               browser.get(l)
-              time.sleep(4)
+              time.sleep(2)
               html = browser.page_source
               time.sleep(2)
               soup = BeautifulSoup(html, 'lxml')
@@ -249,12 +229,14 @@ if uploadedFile is not None:
               'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.148 YaBrowser/22.7.'}
           url_5 = f'https://www.etm.ru/catalog?searchValue={goods}&rows=12'
           r = requests.get(url_5, headers=headers)
+          time.sleep(1.5)
           soup = BeautifulSoup(r.text, 'lxml')
           links = soup.find_all('a', {'target': '_self'})
           links_all = ['https://www.etm.ru' + i.get('href') for i in links]
           for l in links_all[:int(round((len(s_all_final) -5) /2, 0))]:
               st.write('Now - ', l, 'for goods - ', goods)
               res = requests.get(l, headers=headers)
+              time.sleep(1.5)
               soup = BeautifulSoup(res.text, 'lxml')
               try:
                   first_pattern = soup.find('h1').text
