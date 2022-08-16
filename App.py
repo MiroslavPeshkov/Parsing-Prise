@@ -59,6 +59,7 @@ st.title('Парсинг цен')
 st.subheader("Контейнер для загрузки Excel")
 uploadedFile = st.file_uploader("Загрузите txt file",  type=['csv','xlsx'],accept_multiple_files=False,key="fileUploader")
 if uploadedFile is not None:
+    df = pd.read_excel(uploadedFile)
     if len(df.columns) > 10:
         st.write('Second type of docs - ', name_file)
         df.set_index('Unnamed: 0', inplace = True)
