@@ -61,7 +61,7 @@ uploadedFile = st.file_uploader("Загрузите txt file",  type=['csv','xls
 if uploadedFile is not None:
     df = pd.read_excel(uploadedFile)
     if len(df.columns) > 10:
-        st.write('Second type of docs - ', name_file)
+        st.write('The second type of docs - ')
         df.set_index('Unnamed: 0', inplace = True)
         df = df.loc['№ П/П':]
         headers = df.iloc[0].tolist()
@@ -74,7 +74,7 @@ if uploadedFile is not None:
         s_all_final = list(dict.fromkeys(s_all_final))
 
     if len(df.columns) < 10:
-        st.write('First type of docs - ', name_file)
+        st.write('The first type of docs')
         name = df['Артикул, марка '].tolist()
         articl = df['Наименование'].tolist()
         all_name = [[i, j] for i, j in zip(articl, name)]
