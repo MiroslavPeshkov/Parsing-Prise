@@ -124,7 +124,7 @@ if uploadedFile is not None:
         trial.index.name = 'Название товара'
         now_date = datetime.datetime.now().strftime('%Y-%m-%d')
         writer = pd.ExcelWriter(f'Парсинг цен - {now_date}.xlsx')
-        trial.to_excel(writer, index=True)
+        trial.to_excel(writer, index=False)
         writer.save()
         st.write('CSV done')
         with open(f'Парсинг цен - {now_date}.xlsx', "rb") as file:
@@ -134,7 +134,6 @@ if uploadedFile is not None:
                 file_name=f'Парсинг цен - {now_date}.xlsx',
                 mime='text/xlsx',
             )
-        break
         
          
      
