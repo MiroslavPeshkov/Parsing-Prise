@@ -134,6 +134,7 @@ if uploadedFile is not None:
                 file_name=f'Парсинг цен - {now_date}.xlsx',
                 mime='text/xlsx',
             )
+        break
         
          
      
