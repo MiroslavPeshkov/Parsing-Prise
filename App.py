@@ -120,11 +120,10 @@ if uploadedFile is not None:
         df_new['Артикул'] = s_all_final
         df_new = df_new.rename(columns={'Сметная цена с НДС ':'Среднее значение по сметной цене с НДС','Закупочная цена с НДС ':'Среднее значение по закупочной цене с НДС'})
         trial = df_new.groupby('Артикул').mean()
-        trial = trial.reset_index()
         trial.index.name = 'Название товара'
         now_date = datetime.datetime.now().strftime('%Y-%m-%d')
         writer = pd.ExcelWriter(f'Парсинг цен - {now_date}.xlsx')
-        trial.to_excel(writer, index=False)
+        trial.to_excel(writer, index=True)
         writer.save()
         st.write('CSV done')
         with open(f'Парсинг цен - {now_date}.xlsx', "rb") as file:
