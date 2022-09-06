@@ -73,7 +73,7 @@ if uploadedFile is not None:
         s_all_final = list(filter(None, s_all_final))
         s_all_final = list(dict.fromkeys(s_all_final))
 
-    if len(df.columns) < 10:
+    if 'Ед.' in df.columns:
         st.write('The first type of docs')
         name = df['Артикул, марка '].tolist()
         articl = df['Наименование'].tolist()
@@ -92,10 +92,55 @@ if uploadedFile is not None:
             else:
                 s_all_final.append(i)
         s_all_final = list(map(lambda x: x.replace('\n', ''), s_all_final))
+    if 'Ед.' not in df.columns:
+        st.write('The third type of docs from cloud')
+        df = pd.read_excel(uploadedFile, skiprows=2)
+        df = df.dropna(subset=['Сметная цена с НДС ', 'Закупочная цена с НДС '])
+        del df['№']
+        df = df.reset_index()
+        del df['index']
+        name = df['Артикул'].tolist()
+        articl = df['Наименование'].tolist()
+        all_name = [[i, j] for i, j in zip(articl, name)]
+        s_all = []
+        for i in range (len(all_name)):
+            if type(all_name[i][1]) == str:
+                s_all.append(all_name[i][1])
+            elif all_name[i][1] is np.nan:
+                all_name[i][1] = all_name[i][0]
+                s_all.append(str(all_name[i][1]))
+        s_all_final = []
+        for i in s_all:
+            if i == 'nan':
+                continue
+            else:
+                s_all_final.append(i)
+        s_all_final = list(map(lambda x: x.replace('\n', ''), s_all_final))
+        df_new = df[['Сметная цена с НДС ', 'Закупочная цена с НДС ']]
+        df_new['Артикул'] = s_all_final
+        df_new = df_new.rename(columns={'Сметная цена с НДС ':'Среднее значение по сметной цене с НДС','Закупочная цена с НДС ':'Среднее значение по закупочной цене с НДС'})
+        trial = df_new.groupby('Артикул').mean()
+        trial = trial.reset_index()
+        trial.index.name = 'Название товара'
+        now_date = datetime.datetime.now().strftime('%Y-%m-%d')
+        writer = pd.ExcelWriter(f'Парсинг цен - {now_date}.xlsx')
+        trial.to_excel(writer, index=True)
+        writer.save()
+        st.write('CSV done')
+        with open(f'Парсинг цен - {now_date}.xlsx', "rb") as file:
+            st.download_button(
+                label="Download data as CSV",
+                data=file,
+                file_name=f'Парсинг цен - {now_date}.xlsx',
+                mime='text/xlsx',
+            )
+        
+         
+     
     
     
-   
-    st.write('Begin')
+    
+    st.write('Begin scrapping')
     good_links = {}
     browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
     for goods in s_all_final:
