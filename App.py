@@ -44,6 +44,7 @@ firefoxOptions.add_argument("--window-size=1920,1080")
 firefoxOptions.add_argument('--disable-dev-shm-usage')
 firefoxOptions.add_argument('--ignore-certificate-errors')
 firefoxOptions.add_argument('--allow-running-insecure-content')
+firefoxOptions.add_argument('--disable-blink-features=AutomationControlled')
 firefoxOptions.binary = FIREFOXPATH
 path = os.getcwd()
 
