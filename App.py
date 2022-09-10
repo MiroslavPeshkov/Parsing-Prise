@@ -70,6 +70,8 @@ def scrapping_avarage_price(s_all_final):
             links = soup.find_all('p', {'class', 'catalog-product__title'})
             links_ = [i.find('a') for i in links]
             links_all = ['https://www.tinko.ru' + i.get('href') for i in links_]
+            len_ = int(round((len(s_all_final) - 5) / 2, 0))
+            st.write(len_)
             for l in links_all[:int(round((len(s_all_final) - 5) / 2, 0))]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 r = requests.get(l)
@@ -106,6 +108,7 @@ def scrapping_avarage_price(s_all_final):
             links = soup_.find_all('div', {'class': 'digi-product'})
             links_ = [i.find('a') for i in links]
             links_all = ['https://videoglaz.ru' + i.get('href') for i in links_]
+            len_ = int(round((len(s_all_final) - 5) / 2, 0))
             for l in links_all[:int(round((len(s_all_final) - 5) / 2, 0))]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 res = requests.get(l)
