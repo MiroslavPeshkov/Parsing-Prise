@@ -79,14 +79,14 @@ def scrapping_avarage_price(s_all_final):
                 time.sleep(1.5)
                 soup = BeautifulSoup(r.text, 'lxml')
                 try:
-                    first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '')
+                    first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '')
                     st.write(first_pattern.lower().strip() , '==', goods.lower().strip())
-                    second_pattern = soup.find('h2').text.replace('\n', '').replace('\t', '')
+                    second_pattern = soup.find('h2').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '')
                     st.write(second_pattern.lower().strip(), '==', goods.lower().strip())
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
-                if goods.lower().strip() in first_pattern.lower().strip() or goods.lower().strip() in second_pattern.lower().strip():
+                if goods.lower().strip().replace('–', '').replace(' ', '') in first_pattern.lower().strip() or goods.lower().strip().replace('–', '').replace(' ', '') in second_pattern.lower().strip():
                     st.write('Yes price')
                     try:
                         price = soup.find('span', {'class', 'product-detail__price-value'}).text.replace(' ',
