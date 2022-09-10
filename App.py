@@ -61,6 +61,7 @@ def scrapping_avarage_price(s_all_final):
 #     browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options=firefoxOptions)
     for goods in s_all_final:
         good_links[goods] = []
+        goods_check = goods.lower().strip().replace('–', '').replace(' ', '').replace('-', '')
         try:
             # THE FIRST SITE
             url_1 = f'https://www.tinko.ru/search?q={goods}'
@@ -79,14 +80,15 @@ def scrapping_avarage_price(s_all_final):
                 time.sleep(1.5)
                 soup = BeautifulSoup(r.text, 'lxml')
                 try:
-                    first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '')
-                    st.write(first_pattern.lower().strip() , '==', goods.lower().strip())
-                    second_pattern = soup.find('h2').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '')
-                    st.write(second_pattern.lower().strip(), '==', goods.lower().strip())
+                    first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
+                    st.write(first_pattern.lower().strip() , '==', goods_check)
+                    second_pattern = soup.find('h2').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
+                    st.write(second_pattern.lower().strip(), '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
-                if goods.lower().strip().replace('–', '').replace(' ', '') in first_pattern.lower().strip() or goods.lower().strip().replace('–', '').replace(' ', '') in second_pattern.lower().strip():
+#                 goods_check = goods.lower().strip().replace('–', '').replace(' ', '').replace('-', '')
+                if goods_check in first_pattern or goods_check in second_pattern:
                     st.write('Yes price')
                     try:
                         price = soup.find('span', {'class', 'product-detail__price-value'}).text.replace(' ',
@@ -122,12 +124,14 @@ def scrapping_avarage_price(s_all_final):
                 time.sleep(1.5)
                 soup = BeautifulSoup(res.text, 'lxml')
                 try:
-                    first_pattern = soup.find('h1', {'class': 'm-0 good-title'}).text
-                    second_pattern = soup.find('div', {'class': 'tab-content m-3'}).text
+                    first_pattern = soup.find('h1', {'class': 'm-0 good-title'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
+                    st.write(first_pattern.lower().strip() , '==', goods_check)
+                    second_pattern = soup.find('div', {'class': 'tab-content m-3'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
+                    st.write(second_pattern.lower().strip() , '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
-                if goods in first_pattern or goods in second_pattern:
+                if goods_check in first_pattern or goods_check in second_pattern:
                     st.write('Yes price')
                     try:
                         price = soup.find('div', {'class': 'cenaWrap'}).find('b').text.replace(' ', '').replace(',',
@@ -161,11 +165,12 @@ def scrapping_avarage_price(s_all_final):
                 time.sleep(2)
                 soup = BeautifulSoup(html, 'lxml')
                 try:
-                    first_pattern = soup.find('h1').text
+                    first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
+                    st.write(first_pattern.lower().strip() , '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
-                if goods in first_pattern:
+                if goods_check in first_pattern:
                     try:
                         price = soup.find('span', {
                             'class': "ProductPrice__price ProductCartFixedBlockNEW__price__price"}).text.replace('\n',
@@ -191,7 +196,8 @@ def scrapping_avarage_price(s_all_final):
             js = js['products']
             for good in js:
                 name = good['name']
-                if goods in name:
+                st.write(name.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip(), '==', goods_check)
+                if goods_check in name.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip():
                     price = good['price']
                     st.write(price, 'for site - ', goods)
                     good_links[goods].append(price)
@@ -213,12 +219,14 @@ def scrapping_avarage_price(s_all_final):
                 time.sleep(1.5)
                 soup = BeautifulSoup(res.text, 'lxml')
                 try:
-                    first_pattern = soup.find('h1').text
-                    second_patter = soup.find('p', {'class', 'jss86'}).text
+                    first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
+                    st.write(first_pattern.lower().strip() , '==', goods_check)
+                    second_patter = soup.find('p', {'class', 'jss86'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
+                    st.write(second_pattern.lower().strip() , '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
-                if goods in first_pattern or goods in second_patter:
+                if goods_check in first_pattern or goods in second_patter:
                     st.write('Yes price for -', goods)
                     try:
                         price = soup.find(text=re.compile('Ваша цена')).find_next('p').text.replace('₽', '').replace(
