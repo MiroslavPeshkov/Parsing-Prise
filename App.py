@@ -226,7 +226,7 @@ def scrapping_avarage_price(s_all_final):
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
-                if goods_check in first_pattern or goods in second_patter:
+                if goods_check in first_pattern or goods_check in second_patter:
                     st.write('Yes price for -', goods)
                     try:
                         price = soup.find(text=re.compile('Ваша цена')).find_next('p').text.replace('₽', '').replace(
