@@ -211,7 +211,7 @@ def scrapping_avarage_price(s_all_final):
             soup = BeautifulSoup(r.text, 'lxml')
             links = soup.find_all('a', {'target': '_self'})
             links_all = ['https://www.etm.ru' + i.get('href') for i in links]
-            len_ = nt(round((len(links_all) - 5) / 2, 0))
+            len_ = int(round((len(links_all) - 5) / 2, 0))
             for l in links_all[:3]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 res = requests.get(l, headers=headers)
