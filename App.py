@@ -58,7 +58,7 @@ _ = installff()
 def scrapping_avarage_price(s_all_final):
     st.write('Begin scrapping')
     good_links = {}
-    browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options=firefoxOptions)
+#     browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options=firefoxOptions)
     for goods in s_all_final:
         good_links[goods] = []
         try:
@@ -70,7 +70,7 @@ def scrapping_avarage_price(s_all_final):
             links = soup.find_all('p', {'class', 'catalog-product__title'})
             links_ = [i.find('a') for i in links]
             links_all = ['https://www.tinko.ru' + i.get('href') for i in links_]
-            print(len(links_all))
+            st.write(len(links_all))
 #             len_ = int(round((len(s_all_final) - 5) / 2, 0))
             st.write(len_)
             for l in links_all[:int(round((len(s_all_final) - 5) / 2, 0))]:
@@ -101,6 +101,7 @@ def scrapping_avarage_price(s_all_final):
                     continue
             # THE SECOND SITE
             url_2 = f"https://videoglaz.ru/?digiSearch=true&term={goods}&params=%7Csort%3DDEFAULT"
+            browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options=firefoxOptions)
             browser.implicitly_wait(7)
             browser.get(url_2)
             time.sleep(5)
@@ -109,6 +110,8 @@ def scrapping_avarage_price(s_all_final):
             links = soup_.find_all('div', {'class': 'digi-product'})
             links_ = [i.find('a') for i in links]
             links_all = ['https://videoglaz.ru' + i.get('href') for i in links_]
+            st.write(len(links_all))
+            browser.quit()
             len_ = int(round((len(s_all_final) - 5) / 2, 0))
             for l in links_all[:int(round((len(s_all_final) - 5) / 2, 0))]:
                 st.write('Now - ', l, 'for goods - ', goods)
@@ -137,7 +140,7 @@ def scrapping_avarage_price(s_all_final):
                     continue
                     # THE THIRD SITE
             url_3 = f'https://www.citilink.ru/search/?text={goods}'
-            #         browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
+            browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
             browser.implicitly_wait(2)
             browser.get(url_3)
             time.sleep(3)
@@ -174,6 +177,7 @@ def scrapping_avarage_price(s_all_final):
                         break
                 else:
                     continue
+            browser.quit()
 
             # THE FORTH SITE
             url_4 = f'https://sort.diginetica.net/search?st={goods}&apiKey=D1K76714Q4&strategy=vectors_extended,zero_queries_predictor&fullData=true&withCorrection=true&withFacets=true&treeFacets=true&regionId=global&useCategoryPrediction=true&size=20&offset=0&showUnavailable=true&unavailableMultiplier=0.2&preview=false&withSku=false&sort=DEFAULT'
