@@ -73,17 +73,17 @@ def scrapping_avarage_price(s_all_final):
             links_all = ['https://www.tinko.ru' + i.get('href') for i in links_]
             st.write(len(links_all))
             len_ = int(round((len(links_all) - 5) / 2, 0))
-            st.write(len_)
-            for l in links_all[:int(round((len(links_all) - 5) / 2, 0))]:
+#             st.write(len_)
+            for l in links_all[:3]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 r = requests.get(l)
                 time.sleep(1.5)
                 soup = BeautifulSoup(r.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(first_pattern, '==', goods_check)
+#                     st.write(first_pattern, '==', goods_check)
                     second_pattern = soup.find('h2').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(second_pattern, '==', goods_check)
+#                     st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
@@ -115,18 +115,18 @@ def scrapping_avarage_price(s_all_final):
             links_all = ['https://videoglaz.ru' + i.get('href') for i in links_]
             st.write(len(links_all))
             browser.quit()
-            len_ = int(round((len(links_all) - 5) / 2, 0))
-            st.write(len_)
-            for l in links_all[:int(round((len(links_all) - 5) / 2, 0))]:
+#             len_ = int(round((len(links_all) - 5) / 2, 0))
+#             st.write(len_)
+            for l in links_all[:3]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 res = requests.get(l)
                 time.sleep(1.5)
                 soup = BeautifulSoup(res.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1', {'class': 'm-0 good-title'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(first_pattern, '==', goods_check)
+#                     st.write(first_pattern, '==', goods_check)
                     second_pattern = soup.find('div', {'class': 'tab-content m-3'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(second_pattern, '==', goods_check)
+#                     st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
@@ -156,7 +156,7 @@ def scrapping_avarage_price(s_all_final):
             soup = BeautifulSoup(html, 'lxml')
             links = soup.find_all('a', {'class': 'ProductCardVertical__name Link js--Link Link_type_default'})
             links_all = ['https://www.citilink.ru' + i.get('href') for i in links]
-            for l in links_all[:5]:
+            for l in links_all[:3]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 browser.get(l)
                 time.sleep(2)
@@ -165,7 +165,7 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(html, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(first_pattern, '==', goods_check)
+#                     st.write(first_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
@@ -195,10 +195,10 @@ def scrapping_avarage_price(s_all_final):
             js = js['products']
             for good in js:
                 name = good['name']
-                st.write('JSON ================', name.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip(), '==', goods_check)
+#                 st.write('JSON ================', name.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip(), '==', goods_check)
                 if goods_check in name.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip():
                     price = good['price']
-                    st.write('JSON==============', price, 'for site - ', goods)
+#                     st.write('JSON==============', price, 'for site - ', goods)
                     good_links[goods].append(price)
                     break
 
@@ -211,17 +211,17 @@ def scrapping_avarage_price(s_all_final):
             soup = BeautifulSoup(r.text, 'lxml')
             links = soup.find_all('a', {'target': '_self'})
             links_all = ['https://www.etm.ru' + i.get('href') for i in links]
-            st.write('last - ', int(round((len(links_all) - 5) / 2, 0)))
-            for l in links_all[:int(round((len(links_all) - 5) / 2, 0))]:
+            len_ = nt(round((len(links_all) - 5) / 2, 0))
+            for l in links_all[:3]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 res = requests.get(l, headers=headers)
                 time.sleep(1.5)
                 soup = BeautifulSoup(res.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(first_pattern, '==', goods_check)
+#                     st.write(first_pattern, '==', goods_check)
                     second_patter = soup.find('p', {'class', 'jss86'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(second_pattern, '==', goods_check)
+#                     st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
