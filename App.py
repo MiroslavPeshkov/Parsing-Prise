@@ -71,9 +71,9 @@ def scrapping_avarage_price(s_all_final):
             links_ = [i.find('a') for i in links]
             links_all = ['https://www.tinko.ru' + i.get('href') for i in links_]
             st.write(len(links_all))
-#             len_ = int(round((len(s_all_final) - 5) / 2, 0))
+            len_ = int(round((len(links_all) - 5) / 2, 0))
             st.write(len_)
-            for l in links_all[:int(round((len(s_all_final) - 5) / 2, 0))]:
+            for l in links_all[:int(round((len(links_all) - 5) / 2, 0))]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 r = requests.get(l)
                 time.sleep(1.5)
@@ -112,8 +112,9 @@ def scrapping_avarage_price(s_all_final):
             links_all = ['https://videoglaz.ru' + i.get('href') for i in links_]
             st.write(len(links_all))
             browser.quit()
-            len_ = int(round((len(s_all_final) - 5) / 2, 0))
-            for l in links_all[:int(round((len(s_all_final) - 5) / 2, 0))]:
+            len_ = int(round((len(links_all) - 5) / 2, 0))
+            st.write(len_)
+            for l in links_all[:int(round((len(links_all) - 5) / 2, 0))]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 res = requests.get(l)
                 time.sleep(1.5)
