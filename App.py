@@ -81,13 +81,12 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(r.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(first_pattern.lower().strip() , '==', goods_check)
+                    st.write(first_pattern, '==', goods_check)
                     second_pattern = soup.find('h2').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(second_pattern.lower().strip(), '==', goods_check)
+                    st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
-#                 goods_check = goods.lower().strip().replace('–', '').replace(' ', '').replace('-', '')
                 if goods_check in first_pattern or goods_check in second_pattern:
                     st.write('Yes price')
                     try:
@@ -125,9 +124,9 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(res.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1', {'class': 'm-0 good-title'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(first_pattern.lower().strip() , '==', goods_check)
+                    st.write(first_pattern, '==', goods_check)
                     second_pattern = soup.find('div', {'class': 'tab-content m-3'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(second_pattern.lower().strip() , '==', goods_check)
+                    st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
@@ -166,7 +165,7 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(html, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(first_pattern.lower().strip() , '==', goods_check)
+                    st.write(first_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
@@ -196,10 +195,10 @@ def scrapping_avarage_price(s_all_final):
             js = js['products']
             for good in js:
                 name = good['name']
-                st.write(name.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip(), '==', goods_check)
+                st.write('JSON ================', name.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip(), '==', goods_check)
                 if goods_check in name.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip():
                     price = good['price']
-                    st.write(price, 'for site - ', goods)
+                    st.write('JSON==============', price, 'for site - ', goods)
                     good_links[goods].append(price)
                     break
 
@@ -220,9 +219,9 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(res.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(first_pattern.lower().strip() , '==', goods_check)
+                    st.write(first_pattern, '==', goods_check)
                     second_patter = soup.find('p', {'class', 'jss86'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-                    st.write(second_pattern.lower().strip() , '==', goods_check)
+                    st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
