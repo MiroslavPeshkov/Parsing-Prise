@@ -79,12 +79,12 @@ def scrapping_avarage_price(s_all_final):
                 time.sleep(1.5)
                 soup = BeautifulSoup(r.text, 'lxml')
                 try:
-                    first_pattern = soup.find('h1').text
-                    second_pattern = soup.find('h2').text
+                    first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '')
+                    second_pattern = soup.find('h2').text.replace('\n', '').replace('\t', '')
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
-                if goods in first_pattern or goods in second_pattern:
+                if goods.lower().strip() in first_pattern.lower().strip() or goods.lower().strip() in second_pattern.lower().strip():
                     st.write('Yes price')
                     try:
                         price = soup.find('span', {'class', 'product-detail__price-value'}).text.replace(' ',
@@ -204,7 +204,8 @@ def scrapping_avarage_price(s_all_final):
             soup = BeautifulSoup(r.text, 'lxml')
             links = soup.find_all('a', {'target': '_self'})
             links_all = ['https://www.etm.ru' + i.get('href') for i in links]
-            for l in links_all[:int(round((len(s_all_final) - 5) / 2, 0))]:
+            st.write('last - ', int(round((len(links_all) - 5) / 2, 0)))
+            for l in links_all[:int(round((len(links_all) - 5) / 2, 0))]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 res = requests.get(l, headers=headers)
                 time.sleep(1.5)
