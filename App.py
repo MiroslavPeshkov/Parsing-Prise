@@ -81,9 +81,9 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(r.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-#                     st.write(first_pattern, '==', goods_check)
+                    st.write(first_pattern, '==', goods_check)
                     second_pattern = soup.find('h2').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-#                     st.write(second_pattern, '==', goods_check)
+                    st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
@@ -124,9 +124,9 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(res.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1', {'class': 'm-0 good-title'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-#                     st.write(first_pattern, '==', goods_check)
+                    st.write(first_pattern, '==', goods_check)
                     second_pattern = soup.find('div', {'class': 'tab-content m-3'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-#                     st.write(second_pattern, '==', goods_check)
+                    st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
@@ -165,7 +165,7 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(html, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-#                     st.write(first_pattern, '==', goods_check)
+                    st.write(first_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
@@ -219,9 +219,9 @@ def scrapping_avarage_price(s_all_final):
                 soup = BeautifulSoup(res.text, 'lxml')
                 try:
                     first_pattern = soup.find('h1').text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-#                     st.write(first_pattern, '==', goods_check)
+                    st.write(first_pattern, '==', goods_check)
                     second_patter = soup.find('p', {'class', 'jss86'}).text.replace('\n', '').replace('\t', '').replace('-', '').replace(' ', '').lower().strip()
-#                     st.write(second_pattern, '==', goods_check)
+                    st.write(second_pattern, '==', goods_check)
                 except Exception as ex:
                     st.write(ex)
                     st.write(l)
