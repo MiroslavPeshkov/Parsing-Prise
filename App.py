@@ -115,8 +115,6 @@ def scrapping_avarage_price(s_all_final):
             links_all = ['https://videoglaz.ru' + i.get('href') for i in links_]
             st.write(len(links_all))
             browser.quit()
-#             len_ = int(round((len(links_all) - 5) / 2, 0))
-#             st.write(len_)
             for l in links_all[:3]:
                 st.write('Now - ', l, 'for goods - ', goods)
                 res = requests.get(l)
@@ -144,7 +142,7 @@ def scrapping_avarage_price(s_all_final):
                         break
                 else:
                     continue
-                    # THE THIRD SITE
+            # THE THIRD SITE
             url_3 = f'https://www.citilink.ru/search/?text={goods}'
             browser = webdriver.Firefox(executable_path=r'/home/appuser/venv/bin/geckodriver.exe', options = firefoxOptions)
             browser.implicitly_wait(2)
